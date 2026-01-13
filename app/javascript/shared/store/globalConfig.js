@@ -1,6 +1,9 @@
 import { parseBoolean } from '@chatwoot/utils';
 import { resolveMaximumFileUploadSize } from 'shared/helpers/FileHelper';
 
+const INSTALLATION_NAME = 'PlugLead';
+const LOGO_THUMBNAIL = '/pluglead-assets/logo_thumbnail.svg';
+
 const {
   API_CHANNEL_NAME: apiChannelName,
   API_CHANNEL_THUMBNAIL: apiChannelThumbnail,
@@ -14,8 +17,6 @@ const {
   GIT_SHA: gitSha,
   MAXIMUM_FILE_UPLOAD_SIZE: maximumFileUploadSize,
   HCAPTCHA_SITE_KEY: hCaptchaSiteKey,
-  INSTALLATION_NAME: installationName,
-  LOGO_THUMBNAIL: logoThumbnail,
   LOGO: logo,
   LOGO_DARK: logoDark,
   PRIVACY_URL: privacyURL,
@@ -41,10 +42,10 @@ const state = {
   gitSha,
   maximumFileUploadSize: resolveMaximumFileUploadSize(maximumFileUploadSize),
   hCaptchaSiteKey,
-  installationName,
+  installationName: INSTALLATION_NAME,
   logo,
   logoDark,
-  logoThumbnail,
+  logoThumbnail: LOGO_THUMBNAIL,
   privacyURL,
   termsURL,
   widgetBrandURL,
