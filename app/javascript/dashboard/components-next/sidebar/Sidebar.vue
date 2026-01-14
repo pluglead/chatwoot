@@ -73,12 +73,12 @@ provideSidebarContext({
 });
 
 const inboxes = useMapGetter('inboxes/getInboxes');
-const labels = useMapGetter('labels/getLabelsOnSidebar');
+/* const labels = useMapGetter('labels/getLabelsOnSidebar');
 const teams = useMapGetter('teams/getMyTeams');
 const contactCustomViews = useMapGetter('customViews/getContactCustomViews');
 const conversationCustomViews = useMapGetter(
   'customViews/getConversationCustomViews'
-);
+); */
 
 onMounted(() => {
   store.dispatch('labels/get');
@@ -108,7 +108,7 @@ const onComposeClose = () => {
   emitter.emit(BUS_EVENTS.NEW_CONVERSATION_MODAL, false);
 };
 
-const newReportRoutes = () => [
+/* const newReportRoutes = () => [
   {
     name: 'Reports Agent',
     label: t('SIDEBAR.REPORTS_AGENT'),
@@ -134,10 +134,10 @@ const newReportRoutes = () => [
   },
 ];
 
-const reportRoutes = computed(() => newReportRoutes());
+const reportRoutes = computed(() => newReportRoutes()); */
 
 const menuItems = computed(() => {
-  return [
+  /* return [
     {
       name: 'Inbox',
       label: t('SIDEBAR.INBOX'),
@@ -591,6 +591,49 @@ const menuItems = computed(() => {
         },
       ],
     },
+  ]; */
+
+  // TODO: Remove this when other items are implemented
+  // Show only the Conversation item
+  return [
+    {
+      name: 'All',
+      label: 'Todas as conversas',
+      icon: 'i-lucide-message-circle',
+      activeOn: ['inbox_conversation'],
+      to: accountScopedRoute('home'),
+    },
+    {
+      name: 'Mentions',
+      label: 'Menções',
+      icon: 'i-lucide-at-sign',
+      activeOn: ['conversation_through_mentions'],
+      to: accountScopedRoute('conversation_mentions'),
+    },
+    {
+      name: 'Unattended',
+      label: 'Não atendidas',
+      icon: 'i-lucide-message-square-dot',
+      activeOn: ['conversation_through_unattended'],
+      to: accountScopedRoute('conversation_unattended'),
+    },
+    {
+      name: 'Channels',
+      label: t('SIDEBAR.CHANNELS'),
+      icon: 'i-lucide-mailbox',
+      activeOn: ['conversation_through_inbox'],
+      children: sortedInboxes.value.map(inbox => ({
+        name: `${inbox.name}-${inbox.id}`,
+        label: inbox.name,
+        to: accountScopedRoute('inbox_dashboard', { inbox_id: inbox.id }),
+        component: leafProps =>
+          h(ChannelLeaf, {
+            label: leafProps.label,
+            active: leafProps.active,
+            inbox,
+          }),
+      })),
+    },
   ];
 });
 </script>
@@ -620,7 +663,8 @@ const menuItems = computed(() => {
           @show-create-account-modal="emit('showCreateAccountModal')"
         />
       </div>
-      <div class="flex gap-2 px-2">
+      <!-- TODO: Remove this once the search is implemented -->
+      <div v-if="false" class="flex gap-2 px-2">
         <RouterLink
           :to="{ name: 'search' }"
           class="flex gap-2 items-center px-2 py-1 w-full h-7 rounded-lg outline outline-1 outline-n-weak bg-n-solid-3 dark:bg-n-black/30"

@@ -150,14 +150,22 @@ const menuItems = computed(() => {
 const allowedMenuItems = computed(() => {
   return menuItems.value.filter(item => item.show);
 });
+
+const isSuperAdmin = computed(() => {
+  return currentUser.value.type === 'SuperAdmin';
+});
 </script>
 
 <template>
   <DropdownContainer class="relative w-full min-w-0" @close="emit('close')">
     <template #trigger="{ toggle, isOpen }">
       <button
-        class="flex gap-2 items-center p-1 w-full text-left rounded-lg cursor-pointer hover:bg-n-alpha-1"
-        :class="{ 'bg-n-alpha-1': isOpen }"
+        class="flex gap-2 items-center p-1 w-full text-left rounded-lg hover:bg-n-alpha-1"
+        :class="{
+          'bg-n-alpha-1': isOpen,
+          'pointer-events-none !opacity-100': !isSuperAdmin,
+        }"
+        :disabled="!isSuperAdmin"
         @click="toggle"
       >
         <Avatar

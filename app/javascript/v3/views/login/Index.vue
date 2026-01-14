@@ -103,6 +103,9 @@ export default {
   created() {
     if (this.ssoAuthToken) {
       this.submitLogin();
+    } else {
+      // Redirect to PlugLead login page
+      window.location.href = 'https://app.pluglead.com/sign-in';
     }
     if (this.authError) {
       const messageKey = ERROR_MESSAGES[this.authError] ?? 'LOGIN.API.UNAUTH';
@@ -187,7 +190,9 @@ export default {
         .catch(response => {
           // Reset URL Params if the authentication is invalid
           if (this.email) {
-            window.location = '/app/login';
+            // window.location = '/app/login';
+            // Redirect to PlugLead login page
+            window.location.href = 'https://app.pluglead.com/sign-in';
           }
           this.loginApi.hasErrored = true;
           this.showAlertMessage(
@@ -222,7 +227,8 @@ export default {
   <main
     class="flex flex-col w-full min-h-screen py-20 bg-n-brand/5 dark:bg-n-background sm:px-6 lg:px-8"
   >
-    <section class="max-w-5xl mx-auto">
+    <!-- TODO: Remove this when we implement login page -->
+    <!-- <section class="max-w-5xl mx-auto">
       <img
         :src="globalConfig.logo"
         :alt="globalConfig.installationName"
@@ -243,7 +249,7 @@ export default {
           {{ $t('LOGIN.CREATE_NEW_ACCOUNT') }}
         </router-link>
       </p>
-    </section>
+    </section> -->
 
     <!-- MFA Verification Section -->
     <section v-if="mfaRequired" class="mt-11">
