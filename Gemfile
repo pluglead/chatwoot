@@ -80,7 +80,12 @@ gem 'barnes'
 
 ##--- gems for authentication & authorization ---##
 gem 'devise', '>= 4.9.4'
-gem 'devise-secure_password', git: 'https://github.com/chatwoot/devise-secure_password', branch: 'chatwoot'
+# gem "devise-secure_password", git: "https://github.com/chatwoot/devise-secure_password", ref: "0c43ff9"
+# gem 'devise-secure_password', git: 'https://github.com/chatwoot/devise-secure_password', branch: 'chatwoot'
+# gem 'devise-secure_password', git: 'https://github.com/chatwoot/devise-secure_password', ref: '4d9fb1a'
+# gem 'devise-secure_password', git: 'https://github.com/chatwoot/devise-secure_password', tag: 'v2.0.1'
+gem 'devise-secure_password', '2.2.1'
+
 gem 'devise_token_auth', '>= 1.2.3'
 # two-factor authentication
 gem 'devise-two-factor', '>= 5.0.0'
@@ -219,7 +224,6 @@ group :development do
   gem 'bullet'
   gem 'letter_opener'
   gem 'scss_lint', require: false
-  gem 'web-console', '>= 4.2.1'
 
   # When we want to squash migrations
   gem 'squasher'
@@ -248,7 +252,6 @@ group :development, :test do
   ##--- gems for debugging and error reporting ---##
   # static analysis
   gem 'brakeman'
-  gem 'bundle-audit', require: false
   gem 'byebug', platform: :mri
   gem 'climate_control'
   gem 'debug', '~> 1.8'
